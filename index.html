@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💣 DEFUSE THE BOMB 💣</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- API Key Input Modal -->
+        <div class="api-modal" id="api-modal">
+            <div class="api-modal-content">
+                <h2>🔑 ENTER CHATGPT API KEY</h2>
+                <p>Required for question generation</p>
+                <input type="password" id="api-key-input" placeholder="sk-...">
+                <button onclick="saveApiKey()" class="api-btn">ACTIVATE SYSTEM</button>
+                <div class="api-warning">⚠️ Without API key, fallback questions will be used</div>
+            </div>
+        </div>
+        
+        <div class="bomb-container">
+            <div class="timer-display">
+                <div class="timer-label">TIME REMAINING</div>
+                <div class="timer" id="timer">05:00</div>
+                <div class="timer-warning" id="timer-warning">⚠️ CRITICAL ⚠️</div>
+            </div>
+            
+            <div class="bomb-body">
+                <div class="bomb-core">
+                    <div class="led-matrix" id="led-matrix"></div>
+                    <div class="status-display" id="status-display">
+                        <div class="status-text">ARMED - DEFUSE ALL WIRES</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wires-container">
+                    <!-- Red Wire - AI Challenge -->
+                    <div class="wire-module" data-wire="red">
+                        <div class="wire-header">
+                            <span class="wire-color">🔴 RED WIRE</span>
+                            <span class="wire-status" id="red-status">ARMED</span>
+                        </div>
+                        <div class="wire-challenge" id="red-challenge">
+                            <div class="challenge-title" id="red-title">🧠 LOADING CHALLENGE...</div>
+                            <div class="challenge-container">
+                                <div class="challenge-text" id="red-text">Generating random challenge...</div>
+                                <div class="challenge-input">
+                                    <input type="text" id="red-answer" placeholder="Enter your answer...">
+                                    <button onclick="checkWireAnswer('red')" class="solve-btn">SOLVE</button>
+                                </div>
+                                <button onclick="generateNewChallenge('red')" class="refresh-btn">🔄 NEW CHALLENGE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blue Wire - AI Challenge -->
+                    <div class="wire-module" data-wire="blue">
+                        <div class="wire-header">
+                            <span class="wire-color">🔵 BLUE WIRE</span>
+                            <span class="wire-status" id="blue-status">ARMED</span>
+                        </div>
+                        <div class="wire-challenge" id="blue-challenge">
+                            <div class="challenge-title" id="blue-title">🔢 LOADING CHALLENGE...</div>
+                            <div class="challenge-container">
+                                <div class="challenge-text" id="blue-text">Generating random challenge...</div>
+                                <div class="challenge-input">
+                                    <input type="text" id="blue-answer" placeholder="Enter your answer...">
+                                    <button onclick="checkWireAnswer('blue')" class="solve-btn">SOLVE</button>
+                                </div>
+                                <button onclick="generateNewChallenge('blue')" class="refresh-btn">🔄 NEW CHALLENGE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Green Wire - AI Challenge -->
+                    <div class="wire-module" data-wire="green">
+                        <div class="wire-header">
+                            <span class="wire-color">🟢 GREEN WIRE</span>
+                            <span class="wire-status" id="green-status">ARMED</span>
+                        </div>
+                        <div class="wire-challenge" id="green-challenge">
+                            <div class="challenge-title" id="green-title">🌳 LOADING CHALLENGE...</div>
+                            <div class="challenge-container">
+                                <div class="challenge-text" id="green-text">Generating random challenge...</div>
+                                <div class="challenge-input">
+                                    <input type="text" id="green-answer" placeholder="Enter your answer...">
+                                    <button onclick="checkWireAnswer('green')" class="solve-btn">SOLVE</button>
+                                </div>
+                                <button onclick="generateNewChallenge('green')" class="refresh-btn">🔄 NEW CHALLENGE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yellow Wire - AI Challenge -->
+                    <div class="wire-module" data-wire="yellow">
+                        <div class="wire-header">
+                            <span class="wire-color">🟡 YELLOW WIRE</span>
+                            <span class="wire-status" id="yellow-status">ARMED</span>
+                        </div>
+                        <div class="wire-challenge" id="yellow-challenge">
+                            <div class="challenge-title" id="yellow-title">🔐 LOADING CHALLENGE...</div>
+                            <div class="challenge-container">
+                                <div class="challenge-text" id="yellow-text">Generating random challenge...</div>
+                                <div class="challenge-input">
+                                    <input type="text" id="yellow-answer" placeholder="Enter your answer...">
+                                    <button onclick="checkWireAnswer('yellow')" class="solve-btn">SOLVE</button>
+                                </div>
+                                <button onclick="generateNewChallenge('yellow')" class="refresh-btn">🔄 NEW CHALLENGE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Purple Wire - AI Challenge -->
+                    <div class="wire-module" data-wire="purple">
+                        <div class="wire-header">
+                            <span class="wire-color">🟣 PURPLE WIRE</span>
+                            <span class="wire-status" id="purple-status">ARMED</span>
+                        </div>
+                        <div class="wire-challenge" id="purple-challenge">
+                            <div class="challenge-title" id="purple-title">📊 LOADING CHALLENGE...</div>
+                            <div class="challenge-container">
+                                <div class="challenge-text" id="purple-text">Generating random challenge...</div>
+                                <div class="challenge-input">
+                                    <input type="text" id="purple-answer" placeholder="Enter your answer...">
+                                    <button onclick="checkWireAnswer('purple')" class="solve-btn">SOLVE</button>
+                                </div>
+                                <button onclick="generateNewChallenge('purple')" class="refresh-btn">🔄 NEW CHALLENGE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="explosion-overlay" id="explosion-overlay">
+                <div class="explosion-text">💥 BOOM! 💥</div>
+                <div class="game-over-text">MISSION FAILED</div>
+                <div class="overlay-buttons">
+                    <button onclick="resetGame()" class="overlay-btn primary">🔄 RESET GAME</button>
+                    <button onclick="playAgain()" class="overlay-btn secondary">🎮 PLAY AGAIN</button>
+                </div>
+            </div>
+            
+            <div class="success-overlay" id="success-overlay">
+                <div class="success-text">✅ BOMB DEFUSED! ✅</div>
+                <div class="mission-complete-text">MISSION ACCOMPLISHED</div>
+                <div class="time-bonus" id="time-bonus"></div>
+                <div class="overlay-buttons">
+                    <button onclick="playAgain()" class="overlay-btn primary">🎮 PLAY AGAIN</button>
+                    <button onclick="resetGame()" class="overlay-btn secondary">🔄 RESET GAME</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button onclick="resetGame()" class="control-btn">🔄 RESET GAME</button>
+            <button onclick="playAgain()" class="control-btn">🎮 PLAY AGAIN</button>
+            <button onclick="toggleInstructions()" class="control-btn">📋 INSTRUCTIONS</button>
+            <button onclick="showApiModal()" class="control-btn">🔑 API KEY</button>
+            <button onclick="showStats()" class="control-btn">📊 STATISTICS</button>
+            <div class="difficulty-selector">
+                <label>Difficulty:</label>
+                <select id="difficulty" onchange="changeDifficulty()">
+                    <option value="easy">Beginner (7:00)</option>
+                    <option value="medium" selected>Expert (5:00)</option>
+                    <option value="hard">Insane (3:00)</option>
+                    <option value="nightmare">Nightmare (2:00)</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="instructions" id="instructions">
+            <h3>🚨 BOMB DEFUSAL MANUAL 🚨</h3>
+            <div class="instruction-content">
+                <p><strong>🎯 MISSION:</strong> Defuse all 5 wires before time runs out!</p>
+                
+                <div class="wire-descriptions">
+                    <div><strong>🔴 RED WIRE:</strong> Random mathematical puzzles & logic problems</div>
+                    <div><strong>🔵 BLUE WIRE:</strong> Computer science algorithms & data structures</div>
+                    <div><strong>🟢 GREEN WIRE:</strong> Programming logic & computational thinking</div>
+                    <div><strong>🟡 YELLOW WIRE:</strong> Cryptography & security challenges</div>
+                    <div><strong>🟣 PURPLE WIRE:</strong> Advanced algorithms & graph theory</div>
+                </div>
+                
+                <div class="stats-display">
+                    <h4>🎮 GAME CONTROLS</h4>
+                    <p><strong>🔄 RESET GAME:</strong> Restart current game with new challenges</p>
+                    <p><strong>🎮 PLAY AGAIN:</strong> Start completely fresh game (clears progress)</p>
+                    <p><strong>📊 STATISTICS:</strong> View your performance stats</p>
+                    <p><strong>💾 AUTO-SAVE:</strong> Game automatically saves every 5 seconds</p>
+                </div>
+                
+                <div class="stats-display">
+                    <h4>⌨️ KEYBOARD SHORTCUTS</h4>
+                    <p><strong>Ctrl+R:</strong> Reset Game | <strong>Ctrl+H:</strong> Get Hints</p>
+                    <p><strong>Ctrl+S:</strong> Manual Save | <strong>Ctrl+1-5:</strong> Focus Wire</p>
+                    <p><strong>Enter:</strong> Submit Answer | <strong>↑↑↓↓←→←→BA:</strong> Konami Code</p>
+                </div>
+                
+                <p><strong>⚠️ WARNING:</strong> Each wire has completely random AI-generated challenges!</p>
+                <p><strong>🔑 SETUP:</strong> Enter your ChatGPT API key for question generation</p>
+                <p><strong>💾 RECOVERY:</strong> Game will offer to recover if you accidentally refresh</p>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button onclick="clearStats()" class="control-btn" style="background: linear-gradient(45deg, #ff4757, #c44569);">🗑️ CLEAR STATS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="challenges.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
