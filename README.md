@@ -118,7 +118,7 @@ bomb-defusal-game/
 1. **Clone or download the project files**
    ```bash
    git clone [repository-url]
-   cd bomb-defusal-game
+   cd Defuse-the-Bomb
    ```
 
 2. **Serve files using a local web server**
